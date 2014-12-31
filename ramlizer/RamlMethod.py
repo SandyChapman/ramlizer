@@ -5,6 +5,7 @@ from RamlParseable import RamlParseable
 from RamlBody import RamlBody
 from RamlizerParseError import RamlizerParseError
 from RamlResponse import RamlResponse
+from RamlHeader import RamlHeader
 
 class RamlMethod(RamlParseable):
 
@@ -17,7 +18,8 @@ class RamlMethod(RamlParseable):
     
     @raml_optional
     @raml_simple_parse
-    def parse_headers(self): pass
+    def parse_headers(self):
+        self.headers = {x[0] : RamlHeader(x[0], x[1]) for x in self.yaml['headers'].iteritems()}
     
     @raml_optional
     @raml_simple_parse

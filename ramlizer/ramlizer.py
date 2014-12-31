@@ -17,8 +17,3 @@ class RamlFile():
 '''[RamlFile:
     {0}
 ]'''.format(self.root)
-        
-if __name__ == '__main__':
-    # Do some testing!
-    d = RamlFile(open('../access-token.raml', 'r'))
-    print(d)

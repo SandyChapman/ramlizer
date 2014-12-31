@@ -8,6 +8,7 @@ class RamlResource(RamlParseable):
 
     def __init__(self, path, yaml):
         self.path = path
+        self.methods = {}
         super(RamlResource, self).__init__(yaml)
     
     @raml_optional
@@ -29,18 +30,23 @@ class RamlResource(RamlParseable):
     @raml_optional
     def parse_get(self):
         self.get = None if 'get' not in self.yaml else RamlMethod(self.yaml['get'])
+        self.methods['get'] = self.get
         
     @raml_optional
     def parse_post(self):
         self.post = None if 'post' not in self.yaml else RamlMethod(self.yaml['post'])
+        self.methods['post'] = self.post
         
     @raml_optional
     def parse_put(self):
         self.put = None if 'put' not in self.yaml else RamlMethod(self.yaml['put'])
+        self.methods['put'] = self.put
         
     @raml_optional
     def parse_delete(self):
         self.delete = None if 'delete' not in self.yaml else RamlMethod(self.yaml['delete'])
+        self.methods['delete'] = self.delete
+
     
     def __str__(self):
         return \
