@@ -11,9 +11,14 @@ class RamlBody(RamlParseable):
         self.encoding = encoding
         super(RamlBody, self).__init__(yaml)
         
+    def is_json_type(self):
+        return self.encoding == 'application/json' or self.encoding == 'application/hal+json'
+        
+    def is_validatable(self):
+        return self.is_json_type()
+        
     def post_parse(self):
-        if self.encoding == 'application/json' \
-        and self.example != None:
+        if self.is_validatable() and self.example != None:
             try:
                 jsonschema.validate(self.example, self.schema)
                 print('schema+example passed validation.')
@@ -23,14 +28,11 @@ class RamlBody(RamlParseable):
             
     @raml_optional
     def parse_schema(self):
-        if self.encoding == 'application/json':
-            self.schema = json.loads(self.yaml['schema'])
-        else:
-            self.schema = self.yaml['schema']
+        self.schema = self.yaml['schema']
         
     @raml_optional
     def parse_example(self):
-        if self.encoding == 'application/json':
+        if self.is_json_type():
             self.example = json.loads(self.yaml['example'])
         else:
             self.example = self.yaml['example']
