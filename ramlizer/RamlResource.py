@@ -6,6 +6,7 @@ from .RamlURIParameter import RamlURIParameter
 
 def method_parser(name):
 
+    @raml_optional
     def parser(self):
         method = RamlMethod(self.yaml[name]) if name in self.yaml else None
         self.methods[name] = method
