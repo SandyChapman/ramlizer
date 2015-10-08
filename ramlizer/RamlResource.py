@@ -1,8 +1,10 @@
 #!/usr/bin/python
 
-from .decorators import raml_required, raml_optional, raml_tabbed, raml_simple_parse
+from .decorators import raml_optional, raml_tabbed, raml_simple_parse
 from .RamlParseable import RamlParseable
 from .RamlMethod import RamlMethod
+from .RamlURIParameter import RamlURIParameter
+
 
 class RamlResource(RamlParseable):
 
