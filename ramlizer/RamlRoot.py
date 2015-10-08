@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-from RamlParseable import RamlParseable
-from RamlDocumentation import RamlDocumentation
-from RamlResource import RamlResource
-from RamlURIParameter import RamlURIParameter
-from decorators import raml_required, raml_simple_parse, raml_optional, raml_tabbed
+from .RamlParseable import RamlParseable
+from .RamlDocumentation import RamlDocumentation
+from .RamlResource import RamlResource
+from .RamlURIParameter import RamlURIParameter
+from .decorators import raml_required, raml_simple_parse, raml_optional, raml_tabbed
         
 class RamlRoot(RamlParseable):
 
@@ -25,7 +25,7 @@ class RamlRoot(RamlParseable):
            
     @raml_optional
     def parse_baseUriParameters(self):
-        self.baseUriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['baseUriParameters'].iteritems()}
+        self.baseUriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['baseUriParameters'].items()}
         
     @raml_optional
     @raml_simple_parse
@@ -41,11 +41,11 @@ class RamlRoot(RamlParseable):
         
     @raml_optional
     def parse_uriParameters(self): 
-        self.uriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['uriParameters'].iteritems()}
+        self.uriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['uriParameters'].items()}
         
     @raml_optional
     def parse_resources(self):
-        self.resources = {x[0] : RamlResource(x[0], x[1]) for x in filter(lambda x: x[0].startswith('/'), self.yaml.iteritems())}
+        self.resources = {x[0] : RamlResource(x[0], x[1]) for x in filter(lambda x: x[0].startswith('/'), self.yaml.items())}
         
     @raml_optional
     def parse_documentation(self):

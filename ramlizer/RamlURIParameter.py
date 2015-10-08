@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
-from decorators import *
-from RamlParseable import RamlParseable
-from RamlizerParseError import RamlizerParseError
-from RamlNamedParameter import RamlNamedParameter
+from .decorators import *
+from .RamlParseable import RamlParseable
+from .RamlizerParseError import RamlizerParseError
+from .RamlNamedParameter import RamlNamedParameter
                 
 class RamlURIParameter(RamlNamedParameter):
 

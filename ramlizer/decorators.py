@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from RamlizerParseError import RamlizerParseError
+from .RamlizerParseError import RamlizerParseError
    
 def raml_required(func):
     def check_required(*args, **kwargs):

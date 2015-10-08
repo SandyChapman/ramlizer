@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
-from decorators import *
-from RamlBody import RamlBody
-from RamlParseable import RamlParseable
+from .decorators import *
+from .RamlBody import RamlBody
+from .RamlParseable import RamlParseable
 
 class RamlResponse(RamlParseable):
 
@@ -20,7 +20,7 @@ class RamlResponse(RamlParseable):
         
     @raml_optional
     def parse_body(self):
-        self.body = {body_encoding[0] : RamlBody(body_encoding[0], body_encoding[1]) for body_encoding in self.yaml['body'].iteritems()}
+        self.body = {body_encoding[0] : RamlBody(body_encoding[0], body_encoding[1]) for body_encoding in self.yaml['body'].items()}
 
     @raml_tabbed        
     def __str__(self):
