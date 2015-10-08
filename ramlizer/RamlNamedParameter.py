@@ -1,118 +1,128 @@
-#!/usr/bin/python
-
 from .RamlParseable import RamlParseable
-from .decorators import *
+from .RamlizerParseError import RamlizerParseError
+from .decorators import raml_optional, raml_enum_parse, raml_simple_parse
+
+
+def only_with(what, used_with):
+    raise RamlizerParseError(
+        '%s can only be used with %s type Named Parameters.'
+        % (what, used_with))
+
 
 class RamlNamedParameter(RamlParseable):
 
     def __init__(self, yaml):
         super(RamlNamedParameter, self).__init__(yaml)
-    
+
     @raml_optional
     @raml_simple_parse
-    def parse_displayName(self): pass
-    
+    def parse_displayName(self):
+        pass
+
     @raml_optional
     @raml_simple_parse
-    def parse_description(self): pass
-    
+    def parse_description(self):
+        pass
+
     @raml_optional
-    @raml_enum_parse('string', 'number', 'integer', 'date', 'boolean', 'file', default=0)
+    @raml_enum_parse('string', 'number', 'integer', 'date', 'boolean', 'file',
+                     default=0)
     def parse_type(self):
         try:
             if self.type != 'string':
-                if self.enum != None:
-                    raise RamlizerParseError('enum parameter can only be used with string type Named Parameters.')
-                if self.pattern != None:
-                    raise RamlizerParseError('pattern parameter can only be used with string type Named Parameters.')
-                if self.minLength != None:
-                    raise RamlizerParseError('minLength parameter can only be used with string type Named Parameters.')
-                if self.maxLength != None:
-                    raise RamlizerParseError('maxLength parameter can only be used with string type Named Parameters.')
+                if self.enum is not None:
+                    only_with('enum', 'string')
+                if self.pattern is not None:
+                    only_with('pattern', 'string')
+                if self.minLength is not None:
+                    only_with('minLength', 'string')
+                if self.maxLength is not None:
+                    only_with('maxLength', 'string')
             if self.type != 'integer':
-                if self.minimum != None:
-                    raise RamlizerParseError('minimum parameter can only be used with integer type Named Parameters.')
-                if self.maximum != None:
-                    raise RamlizerParseError('maximum parameter can only be used with integer type Named Parameters.!')
-                
-        except AttributeError as e:
+                if self.minimum is not None:
+                    only_with('minimum', 'integer')
+                if self.maximum is not None:
+                    only_with('maximum', 'integer')
+        except AttributeError:
             pass
-    
+
     @raml_optional
     @raml_simple_parse
     def parse_enum(self):
         try:
-            if self.enum != None and self.type != 'string':
+            if self.enum is not None and self.type != 'string':
                 raise RamlizerParseError('RamlizerParseError!')
-        except AttributeError as e:
+        except AttributeError:
             pass
-            
-    
+
     @raml_optional
     @raml_simple_parse
     def parse_pattern(self):
-        #TODO: Validate pattern is a regex.
+        # TODO: Validate pattern is a regex.
         try:
-            if self.pattern != None and self.type != 'string':
+            if self.pattern is not None and self.type != 'string':
                 raise RamlizerParseError('RamlizerParseError!')
-        except AttributeError as e:
+        except AttributeError:
             pass
-    
+
     @raml_optional
     @raml_simple_parse
     def parse_minLength(self):
         try:
-            if self.minLength != None and self.type != 'string':
+            if self.minLength is not None and self.type != 'string':
                 raise RamlizerParseError('RamlizerParseError!')
-        except AttributeError as e:
+        except AttributeError:
             pass
-    
+
     @raml_optional
     @raml_simple_parse
-    def parse_maxLength(self): 
+    def parse_maxLength(self):
         try:
-            if self.maxLength != None and self.type != 'string':
+            if self.maxLength is not None and self.type != 'string':
                 raise RamlizerParseError('RamlizerParseError!')
-        except AttributeError as e:
+        except AttributeError:
             pass
-    
+
     @raml_optional
     @raml_simple_parse
-    def parse_minimum(self): 
+    def parse_minimum(self):
         try:
-            if self.minimum != None and self.type != 'integer':
+            if self.minimum is not None and self.type != 'integer':
                 raise RamlizerParseError('RamlizerParseError!')
-        except AttributeError as e:
+        except AttributeError:
             pass
-    
+
     @raml_optional
     @raml_simple_parse
-    def parse_maximum(self): 
+    def parse_maximum(self):
         try:
-            if self.maximum != None and self.type != 'integer':
+            if self.maximum is not None and self.type != 'integer':
                 raise RamlizerParseError('RamlizerParseError!')
-        except AttributeError as e:
+        except AttributeError:
             pass
-        
+
     @raml_optional
     @raml_simple_parse
-    def parse_example(self): pass
-        
+    def parse_example(self):
+        pass
+
     @raml_optional
     @raml_simple_parse
-    def parse_repeat(self): pass
-        
+    def parse_repeat(self):
+        pass
+
     @raml_optional
     @raml_simple_parse
-    def parse_required(self): pass
-        
+    def parse_required(self):
+        pass
+
     @raml_optional
     @raml_simple_parse
-    def parse_default(self): pass
-    
+    def parse_default(self):
+        pass
+
     def __str__(self):
-        return \
-'''
+        return '''\
     displayName: {0.displayName}
     description: {0.description}
     type: {0.type}

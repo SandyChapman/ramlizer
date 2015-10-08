@@ -1,60 +1,75 @@
-#!/usr/bin/python
-
 from .RamlParseable import RamlParseable
 from .RamlDocumentation import RamlDocumentation
 from .RamlResource import RamlResource
 from .RamlURIParameter import RamlURIParameter
-from .decorators import raml_required, raml_simple_parse, raml_optional, raml_tabbed
-        
+from .decorators import (raml_required, raml_optional,
+                         raml_simple_parse, raml_tabbed)
+
+
 class RamlRoot(RamlParseable):
 
     def __init__(self, yaml):
         super(RamlRoot, self).__init__(yaml)
-        
+
     @raml_required
     @raml_simple_parse
-    def parse_title(self): pass
-    
+    def parse_title(self):
+        pass
+
     @raml_optional
     @raml_simple_parse
-    def parse_version(self): pass
-        
+    def parse_version(self):
+        pass
+
     @raml_required
     @raml_simple_parse
-    def parse_baseUri(self): pass
-           
+    def parse_baseUri(self):
+        pass
+
     @raml_optional
     def parse_baseUriParameters(self):
-        self.baseUriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['baseUriParameters'].items()}
-        
+        self.baseUriParameters = {
+            x[0]: RamlURIParameter(x[1])
+            for x in self.yaml['baseUriParameters'].items()
+        }
+
     @raml_optional
     @raml_simple_parse
-    def parse_protocols(self): pass
-        
+    def parse_protocols(self):
+        pass
+
     @raml_optional
     @raml_simple_parse
-    def parse_mediaType(self): pass
-    
+    def parse_mediaType(self):
+        pass
+
     @raml_optional
     @raml_simple_parse
-    def parse_schemas(self): pass
-        
+    def parse_schemas(self):
+        pass
+
     @raml_optional
-    def parse_uriParameters(self): 
-        self.uriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['uriParameters'].items()}
-        
+    def parse_uriParameters(self):
+        self.uriParameters = {
+            x[0]: RamlURIParameter(x[1])
+            for x in self.yaml['uriParameters'].items()
+        }
+
     @raml_optional
     def parse_resources(self):
-        self.resources = {x[0] : RamlResource(x[0], x[1]) for x in filter(lambda x: x[0].startswith('/'), self.yaml.items())}
-        
+        self.resources = {
+            x[0]: RamlResource(x[0], x[1])
+            for x in filter(lambda x: x[0].startswith('/'), self.yaml.items())
+        }
+
     @raml_optional
     def parse_documentation(self):
         self.documentation = RamlDocumentation(self.yaml['documentation'])
-                
+
     @raml_tabbed
     def __str__(self):
-        return \
-'''[RamlRoot:
+        return '''\
+[RamlRoot:
     title: {0.title}
     version: {0.version}
     base URI: {0.baseUri}
