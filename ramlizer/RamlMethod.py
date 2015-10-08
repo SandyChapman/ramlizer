@@ -40,7 +40,7 @@ class RamlMethod(RamlParseable):
 
     @raml_optional
     def parse_responses(self):
-        self.response = {
+        self.responses = {
             response_code[0]: RamlResponse(response_code[0], response_code[1])
             for response_code in self.yaml['responses'].items()
         }
@@ -54,5 +54,5 @@ class RamlMethod(RamlParseable):
     protocols: {0.protocols}
     queryParameters: {0.queryParameters}
     body: {0.body}
-    response: {0.response}
+    responses: {0.responses}
 ]'''.format(self)
