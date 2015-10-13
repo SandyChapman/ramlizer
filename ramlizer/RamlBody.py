@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-from RamlParseable import RamlParseable
-from decorators import *
+from .RamlParseable import RamlParseable
+from .decorators import *
 import json
 import jsonschema
 

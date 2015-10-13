@@ -1,8 +1,10 @@
 #!/usr/bin/python
 
-from decorators import raml_required, raml_optional, raml_tabbed, raml_simple_parse
-from RamlParseable import RamlParseable
-from RamlMethod import RamlMethod
+from .decorators import raml_optional, raml_tabbed, raml_simple_parse
+from .RamlParseable import RamlParseable
+from .RamlMethod import RamlMethod
+from .RamlURIParameter import RamlURIParameter
+
 
 class RamlResource(RamlParseable):
 
@@ -21,11 +23,11 @@ class RamlResource(RamlParseable):
     
     @raml_optional
     def parse_uriParameters(self): 
-        self.uriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['uriParameters'].iteritems()}
+        self.uriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['uriParameters'].items()}
         
     @raml_optional
     def parse_baseUriParameters(self):
-        self.baseUriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['baseUriParameters'].iteritems()}
+        self.baseUriParameters = {x[0] : RamlURIParameter(x[1]) for x in self.yaml['baseUriParameters'].items()}
         
     @raml_optional
     def parse_get(self):

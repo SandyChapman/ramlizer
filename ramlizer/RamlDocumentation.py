@@ -1,7 +1,7 @@
 #!/usr/bin/python
                
-from RamlParseable import RamlParseable
-from decorators import raml_required, raml_simple_parse, raml_optional, raml_tabbed
+from .RamlParseable import RamlParseable
+from .decorators import raml_required, raml_simple_parse, raml_optional, raml_tabbed
 
 class RamlDocument(RamlParseable):
 

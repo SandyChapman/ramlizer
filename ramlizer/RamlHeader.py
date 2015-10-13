@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-from RamlNamedParameter import RamlNamedParameter
-from decorators import *
+from .RamlNamedParameter import RamlNamedParameter
+from .decorators import *
 
 class RamlHeader(RamlNamedParameter):
     

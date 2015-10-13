@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import yaml
-from RamlRoot import RamlRoot
+from .RamlRoot import RamlRoot
 import os.path
 
 class RamlFile():
